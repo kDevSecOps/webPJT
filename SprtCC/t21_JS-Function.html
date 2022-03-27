@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Function</title>
+    <script>
+        function hey() {
+            alert('안녕!');
+        };
+        function is_adult(age) {
+            if (age > 20) {
+                alert('성인이에요')
+            } else {
+                alert('청소년이에요')
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>로그인 페이지</h1>
+    <p>ID: <input type="text" /></p>
+    <p>PW: <input type="text" /></p>
+    <button onclick="is_adult(25)">로그인하기</button>
+</body>
+
+</html>
