@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>스파르타코딩클럽 | 부트스트랩 연습하기</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container-fluid p-5 bg-primary text-white text-center">
+        <h1>AJAX</h1>
+        <p>Resize this responsive page to see the effect!</p>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>Ajax 시작하기 </h3>
+                <p>참고! Ajax는 jQuery를 임포트한 페이지에서만 동작 가능</p>
+                <p>Uncaught TypeError: $.ajax is not a function
+                    → ajax라는 게 없다는 뜻</p>
+            </div>
+            <div class="col-sm-4">
+                <h3>Ajax 기본 골격</h3>
+                <p>$.ajax({
+                    type: "GET",
+                    url: "여기에URL을입력",
+                    data: {},
+                    success: function(response){
+                    console.log(response)
+                    }
+                    })</p>
+                <h4>Ajax 코드 해설</h4>
+                <textarea name="text22" rows="20" cols="36">$.ajax({
+                type: "GET", // GET 방식으로 요청한다.
+                url: "http://spartacodingclub.shop/sparta_api/seoulair",
+                data: {}, // 요청하면서 함께 줄 데이터 (GET 요청시엔 비워두세요)
+                success: function(response){ // 서버에서 준 결과를 response라는 변수에 담음
+                  console.log(response) // 서버에서 준 결과를 이용해서 나머지 코드를 작성
+                }
+              })</textarea>
+                <h4>Ajax 코드 설명</h4>
+                <textarea name="text23" rows="20" cols="36">$.ajax({
+                - type: "GET", // GET 방식으로 요청한다.
+                - url: 요청할 url
+                data: {}, // 요청하면서 함께 줄 데이터 (GET 요청시엔 비워두세요)
+                >> GET 요청은, url뒤에 아래와 같이 붙여서 데이터를 가져갑니다.
+                http://naver.com?param=value&param2=value2 
+                >> POST 요청은, data : {} 에 넣어서 데이터를 가져갑니다.
+                data: { param: 'value', param2: 'value2' }
+
+                - success: 성공하면, response 값에 서버의 결과 값을 담아서 함수를 실행
+              })</textarea>
+            </div>
+            <div class="col-sm-4">
+                <h3>Ajax 통신의 결과값을 이용해보기</h3>
+                <textarea name="text31" rows="20" cols="36">$.ajax({
+                type: "GET", // GET 방식으로 요청한다.
+                url: "http://spartacodingclub.shop/sparta_api/seoulair",
+                data: {}, // 요청하면서 함께 줄 데이터 (GET 요청시엔 비워두세요)
+                success: function(response){ // 서버에서 준 결과를 response라는 변수에 담음
+                  console.log(response) // 서버에서 준 결과를 이용해서 나머지 코드를 작성
+                }
+              })</textarea>
+                <h4>개발자도구 콘솔에 찍어보기</h4>
+                <textarea name="text22" rows="20" cols="36">$.ajax({
+                type: "GET",
+                url: "http://spartacodingclub.shop/sparta_api/seoulair",
+                data: {},
+                success: function(response){
+                      // 값 중 도봉구의 미세먼지 값만 가져와보기
+                      let dobong = response["RealtimeCityAir"]["row"][11];
+                      let gu_name = dobong['MSRSTE_NM'];
+                      let gu_mise = dobong['IDEX_MVL'];
+                      console.log(gu_name, gu_mise);
+                }
+              })</textarea>
+                <h4>모든 구의 미세먼지 값을 찍어보기</h4>
+                <textarea name="text22" rows="20" cols="36">
+                $.ajax({
+                    type: "GET",
+                    url: "http://spartacodingclub.shop/sparta_api/seoulair",
+                    data: {},
+                    success: function (response) {
+                      let mise_list = response["RealtimeCityAir"]["row"];
+                      for (let i = 0; i < mise_list.length; i++) {
+                        let mise = mise_list[i];
+                        let gu_name = mise["MSRSTE_NM"];
+                        let gu_mise = mise["IDEX_MVL"];
+                        console.log(gu_name, gu_mise);
+                      }
+                    }
+                  });
+                </textarea>
+                <h4>구 데이터에서 구 이름, 미세먼지 수치를 골라내어 출력하기</h4>
+                <h6>구 이름 키 값인 "MSRSTE_NM", 미세먼지 수치 키값인 "IDEX_MVL"의 밸류를 출력</h6>
+                <textarea name="text22" rows="20" cols="36">
+                    $.ajax({
+                        type: "GET",
+                        url: "http://spartacodingclub.shop/sparta_api/seoulair",
+                        data: {},
+                        success: function (response) {
+                          let mise_list = response["RealtimeCityAir"]["row"];
+                          for (let i = 0; i < mise_list.length; i++) {
+                            let mise = mise_list[i];
+                            let gu_name = mise["MSRSTE_NM"];
+                            let gu_mise = mise["IDEX_MVL"];
+                            console.log(gu_name, gu_mise);
+                          }
+                        }
+                      });
+                </textarea>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
