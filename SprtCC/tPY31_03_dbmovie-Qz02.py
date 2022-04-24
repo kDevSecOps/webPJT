@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 from pymongo import MongoClient
 client = MongoClient(
-    'mongodb+srv://mgDBusr:mq1w2E#r4g@cluster0.bllxi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+    'mongodb+srv://mgDBusr:<password>@cluster0.bllxi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
 db = client.dbsparta
 
 # URL을 읽어서 HTML를 받아오고,
